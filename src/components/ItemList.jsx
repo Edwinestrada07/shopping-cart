@@ -3,6 +3,7 @@ import storeItems from "../data/products.json"
 import Item from './Item'
 
 const ItemList = () => {
+    
     return (
         <div className='items-list'>
             {

@@ -46,15 +46,43 @@ const Item = ({ name, price, id, imgUrl }) => {
         })
     }
 
+    const getQuantityById = (id) => {
+        return cart.find((item) => item.id === id)?.quantity || 0
+    }
+
+    const quantityPerItem = getQuantityById(id)
 
     return (
-        <div className='item-box'>Item
+        <div className='item-box'>
+            {
+                quantityPerItem > 0 && (
+                    <div className='item-quantity'>{quantityPerItem}</div>    
+                )
+            }
+
             <div>{name}</div>
             <img src={imgUrl} width="80" height="55"/>
             <div className='item-price'>{price}</div>
-            <button className='item-add-button' onClick={() => addToCart()}
-                >+ Add to cart
-            </button>
+
+            {
+                quantityPerItem === 0 ? (
+                    <button className='item-add-button' onClick={() => addToCart()}
+                        >+ Add to cart
+                    </button>
+                ) : (
+                    <button className='item-plus-button' onClick={() => addToCart()}
+                        >+ Add more
+                    </button>
+                )
+            }
+
+            {
+                quantityPerItem > 0 && (
+                    <button className='item-minus-button' onClick={() => removeItem(id)}
+                        >subtract item
+                    </button>
+                )
+            }
         </div>
     )
 }
